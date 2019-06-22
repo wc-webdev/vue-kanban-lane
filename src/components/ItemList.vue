@@ -1,22 +1,33 @@
 <template>
   <div>
-    <ArticleBase
+    <ArticleWrapper
       v-for="item in items"
-      v-bind:key="item.id"
+      :key="item.id"
     >
-      <ArticleHeader>
-        <ArticleTitle>
-          {{item.title}}
-        </ArticleTitle>
-      </ArticleHeader>
-    </ArticleBase>
+      <router-link
+        v-bind:to="`/items/${item.id}`"
+        style="text-decoration: none; color: inherit;"
+      >
+        <ArticleBase>
+          <ArticleHeader>
+            <ArticleTitle>
+              {{item.title}}
+            </ArticleTitle>
+          </ArticleHeader>
+        </ArticleBase>
+      </router-link>
+    </ArticleWrapper>
   </div>
 </template>
 
 <script>
   import { styled, } from 'styletron-vue'
 
-  const ArticleBase = styled('article', {
+  const ArticleWrapper = styled('article', {
+    position: 'relative',
+  })
+
+  const ArticleBase = styled('div', {
     borderWidth: '1px',
     borderStyle: 'solid',
     borderColor: 'currentColor',
@@ -43,6 +54,7 @@
       items: Array,
     },
     components: {
+      ArticleWrapper,
       ArticleBase,
       ArticleHeader,
       ArticleTitle,
